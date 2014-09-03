@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @ad.user_id %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @ad.link %>
+</p>
+
+<p>
+  <strong>Repost:</strong>
+  <%= @ad.repost %>
+</p>
+
+<p>
+  <strong>Done:</strong>
+  <%= @ad.done %>
+</p>
+
+<%= link_to 'Edit', edit_ad_path(@ad) %> |
+<%= link_to 'Back', ads_path %>

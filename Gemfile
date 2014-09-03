@@ -20,11 +20,20 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
+gem 'kaminari'
+gem 'underscore-rails'
+gem 'jquery-placeholder-rails'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
 
 group :development do
+  gem "thin"
   gem "foreman"
   gem "spring"
   gem "spring-commands-rspec"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'guard-rails'
 end
 
 group :development, :test do
@@ -34,6 +43,8 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "pry-rails"
   gem "rspec-rails", "~> 2.14.0"
+  gem 'terminal-notifier-guard'
+  gem 'guard', require: false
 end
 
 group :test do
@@ -44,6 +55,7 @@ group :test do
   gem "shoulda-matchers", require: false
   gem "timecop"
   gem "webmock"
+  gem 'guard-rspec', require: false
 end
 
 group :staging, :production do
