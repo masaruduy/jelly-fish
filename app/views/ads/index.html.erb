@@ -1,30 +1,46 @@
 <h1>Listing ads</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>User</th>
       <th>Link</th>
-      <th>Repost</th>
-      <th>Done</th>
-      <th colspan="3"></th>
+      <th>Repost Time</th>
+      <% if @current_user.indian? %>
+        <th>Id</th>
+        <th>Kijiji User</th>
+        <th>Kijiji Pass</th>
+        <th>Done</th>
+      <% else %>
+        <th>Last Repost</th>
+        <th colspan="2"></th>
+      <% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @ads.each do |ad| %>
       <tr>
-        <td><%= ad.user_id %></td>
-        <td><%= ad.link %></td>
-        <td><%= ad.repost %></td>
-        <td><%= ad.done %></td>
-        <td><%= link_to 'Show', ad %></td>
-        <td><%= link_to 'Edit', edit_ad_path(ad) %></td>
-        <td><%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><a href="<%= ad.link %>"><%= ad.link%></a></td>
+        <td><%= l ad.repost_time %></td>
+        <% if @current_user.indian? %>
+          <td><%= ad.id %></td>
+          <td><%= ad.user.kijiji_user %></td>
+          <td><%= ad.user.kijiji_password %></td>
+          <td>
+            <%= form_for ad, as: "announce",url: done_ad_url(ad.id) do |f| %>
+            <%= f.submit "Done", class: "btn btn-success" %>
+          <%end%>
+        </td>
+        <% else %>
+          <td><%= ad.last_repost || "Never"%></td>
+          <td><%= link_to 'Edit', edit_ad_path(ad) %></td>
+          <td><%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= paginate @ads %>
 
 <br>
 

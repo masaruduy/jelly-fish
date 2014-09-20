@@ -1,0 +1,71 @@
+!!! 5
+%html
+  %head
+    %title= "JellyFish"
+    %meta{ ROBOTS: "NOODP"}
+    %meta{ :charset => "utf-8" }
+    %meta{ :content => "JellyFish website", :name => "description" }
+    %meta{ :content => "Zaratan", :name => "author" }
+    = stylesheet_link_tag    "application", media: "all" 
+    = stylesheet_link_tag    params[:controller], media: "all" 
+    = csrf_meta_tags 
+  %body
+    <!-- Fixed navbar -->
+    .navbar.navbar-default.navbar-fixed-top{role:"navigation"}
+      .container
+        .navbar-header
+          %button.navbar-toggle{type: "button", data:{ toggle: "collapse", target: ".navbar-collapse"}}
+            %span.sr-only Toggle
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+            =link_to 'JellyFish', root_path, class: "navbar-brand"
+
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li
+              =link_to 'Home', root_path
+          %p.navbar-text.navbar-right
+            = link_to(logout_path, method: "delete") do
+              %span.glyphicon.glyphicon-log-out
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              = link_to(users_path) do
+                = @current_user.email
+    -if flash[:error]
+      .alert.alert-danger.alert-dismissable.alert-main
+        %b= 'Woops!'
+        = flash[:error]
+        %button.close{type: "button", data: {dismiss:"alert"}, aria: {hidden: "true"}} &times;
+    -if flash[:warning]
+      .alert.alert-warning.alert-dismissable.alert-main
+        %b= 'Warning!'
+        = flash[:warning]
+        %button.close{type: "button", data: {dismiss:"alert"}, aria: {hidden: "true"}} &times;
+    -if flash[:success]
+      .alert.alert-success.alert-dismissable.alert-main
+        %b= 'Success!'
+        = flash[:success]
+        %button.close{type: "button", data: {dismiss:"alert"}, aria: {hidden: "true"}} &times;
+          
+    %main.container
+      #main.row
+        = yield 
+    %footer.container
+      .pull-left.tiny
+        %small= "Classy JellyFish © 2014"
+      .links.pull-right.tiny
+        %ul.list-unstyled
+          %li 
+            %small 
+              //=link_to 'About', about_path
+          %li 
+            %small 
+              = mail_to "masaruduy@gmail.com", 'Contact'
+      .links.logo
+        = link_to("http://jelly-fish-productionherokuapp.com") do
+          = image_tag("/images/jelly_fish_icon.png")
+
+    = javascript_include_tag "application"#, "data-turbolinks-track" => true 
+    = javascript_include_tag params[:controller]
+    = javascript_include_tag "#{params[:controller]}/#{params[:action]}"

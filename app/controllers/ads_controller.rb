@@ -3,7 +3,19 @@ class AdsController < ApplicationController
 
   # GET /ads
   def index
-    @ads = Ad.all
+    if current_user.indian || current_user.admin
+      @ads = Ad.where("repost_time < ?",1.day.from_now).page(params[:page])
+    else
+      @ads = Ad.where(user: current_user).page(params[:page])
+    end
+  end
+
+  def done
+    ad = Ad.find(params[:id])
+    ad.repost_time += 1.day
+    ad.last_repost = Time.now
+    ad.save
+    redirect_to action: :index
   end
 
   # GET /ads/1
@@ -12,7 +24,9 @@ class AdsController < ApplicationController
 
   # GET /ads/new
   def new
+    redirect_to action: :index if Ad.where(user: current_user).size >= 5
     @ad = Ad.new
+    @ad.user = current_user
   end
 
   # GET /ads/1/edit
@@ -22,9 +36,11 @@ class AdsController < ApplicationController
   # POST /ads
   def create
     @ad = Ad.new(ad_params)
+    @ad.user_id = current_user.id
+    @ad.done = false
 
     if @ad.save
-      redirect_to @ad, notice: 'Ad was successfully created.'
+      redirect_to action: :index
     else
       render :new
     end
@@ -53,6 +69,6 @@ class AdsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def ad_params
-      params.require(:ad).permit(:user_id, :link, :repost, :done)
+      params.require(:announce).permit(:link, :repost_time)
     end
 end

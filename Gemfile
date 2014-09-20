@@ -2,7 +2,6 @@ source "https://rubygems.org"
 
 ruby "2.1.2"
 
-gem "airbrake"
 gem "bourbon", "~> 3.2.1"
 gem "coffee-rails"
 gem "delayed_job_active_record"
@@ -16,23 +15,25 @@ gem "rack-timeout"
 gem "rails", "4.1.4"
 gem "recipient_interceptor"
 gem "sass-rails", "~> 4.0.3"
+gem 'haml-rails'
 gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
 gem 'kaminari'
 gem 'underscore-rails'
-gem 'jquery-placeholder-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-datepicker-rails'
+gem 'jquery-placeholder-rails'
+gem 'spinjs-rails', git: 'https://github.com/Skizzk/spinjs-rails', branch: 'patch-1'
 gem 'autoprefixer-rails'
+gem "bcrypt"
 
 group :development do
   gem "thin"
   gem "foreman"
   gem "spring"
   gem "spring-commands-rspec"
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'guard-rails'
 end
 
