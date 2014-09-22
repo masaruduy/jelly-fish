@@ -48,8 +48,10 @@ class AdsController < ApplicationController
 
   # PATCH/PUT /ads/1
   def update
+    old_ad_link = @ad.link
     if @ad.update(ad_params)
-      redirect_to @ad, notice: 'Ad was successfully updated.'
+      mail_update(old_ad_link, @ad)
+      redirect_to action: :index, notice: 'Ad was successfully updated.'
     else
       render :edit
     end
@@ -70,5 +72,13 @@ class AdsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def ad_params
       params.require(:announce).permit(:link, :repost_time)
+    end
+
+    def mail_update(old_ad_link, ad)
+      if old_ad_link == ad.link
+        TaskMailer.modify_task(ad)
+      else
+        TaskMailer.replace_task(old_ad_link, ad)
+      end.deliver
     end
 end
