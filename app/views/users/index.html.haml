@@ -6,11 +6,14 @@
 
 =form_for @current_user, as: 'user' do |f|
   .field.form-group
-    = f.text_field :kijiji_user, value: @current_user.kijiji_user, class: "form-control", placeholder: "Kijiji user" 
+    = f.label :kijiji_user, "Kijiji User"
+    = f.text_field :kijiji_user, value: @current_user.kijiji_user, class: "form-control"
   
   .field.form-group
-    = f.text_field :kijiji_password, value: @current_user.kijiji_password, class: "form-control", placeholder: "Kijiji password" 
+    = f.label :kijiji_password, "Kijiji Password"
+    = f.text_field :kijiji_password, value: @current_user.kijiji_password, class: "form-control"
 
   .field.form-group
+    = f.label :password, 'New password'
     = f.text_field :password, class: "form-control", placeholder: "New Password" 
   = f.submit class: "btn btn-primary"
