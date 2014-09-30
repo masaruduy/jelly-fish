@@ -1,0 +1,21 @@
+!!! 5
+%html
+  %head
+    %title JellyFish
+    = stylesheet_link_tag    "application", media: "all" 
+    = stylesheet_link_tag    params[:controller], media: "all" 
+    = csrf_meta_tags 
+  %body
+    -if flash[:error]
+      .alert.alert-danger.alert-dismissable.alert-login
+        %b= t 'view.layout.alert.error'
+        = flash[:error]
+        %button.close{type: "button", data: {dismiss:"alert"}, aria: {hidden: "true"}} &times;
+    %main.container.login-controller
+      %h2.form-signin-heading= t 'view.login.credential'
+      =form_tag({controller: "login", action: "create"}, method: "post", role: "form") do
+        = text_field_tag :email, "",placeholder: 'email', required: true, autofocus: true, class: "form-control"
+        = password_field_tag :password, "",placeholder: 'password', required: true, class: "form-control"
+        = label_tag ''
+        = button_tag 'Sign In', class: "btn btn-lg btn-primary btn-block"
+    = javascript_include_tag "application"#, "data-turbolinks-track" => true 

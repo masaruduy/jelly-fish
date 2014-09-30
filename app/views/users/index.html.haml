@@ -1,0 +1,19 @@
+%h1 User Info
+
+%dl
+  %dt Email
+  %dd= @current_user.email
+
+=form_for @current_user, as: 'user' do |f|
+  .field.form-group
+    = f.label :kijiji_user, "Kijiji User"
+    = f.text_field :kijiji_user, value: @current_user.kijiji_user, class: "form-control"
+  
+  .field.form-group
+    = f.label :kijiji_password, "Kijiji Password"
+    = f.text_field :kijiji_password, value: @current_user.kijiji_password, class: "form-control"
+
+  .field.form-group
+    = f.label :password, 'New JellyFish password'
+    = f.text_field :password, class: "form-control", placeholder: "New Password" 
+  = f.submit class: "btn btn-primary"

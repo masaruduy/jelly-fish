@@ -1,0 +1,214 @@
+@charset 'utf-8'
+
+@import "normalize"
+@import 'bourbon'
+@import 'base/grid-settings'
+@import 'neat'
+@import 'base/base'
+@import "bootstrap-sprockets"
+@import "bootstrap"
+@import "variables"
+
+html
+  height: 100%
+
+body 
+  font-family: $helvetica
+  background: $body_color
+  min-height: 100%
+main
+  padding-top: 80px
+  #main
+    background: $main_color
+    padding: 2%
+    border-radius: 10px
+
+.page-header
+  margin: 0
+
+.navbar
+  img
+    width: 10%
+  .nav-logo
+    padding: 1% 0
+  background: $navbar_color
+  border-color: $navbar_boder
+
+  .navbar-nav li a
+    color: #fff
+    opacity: 0.7
+  .navbar-brand
+    color: #fff
+    &:hover
+      color: $orange
+  
+  
+  .navbar-text 
+    
+    color: #e2e1dc
+    a
+      @include transition (opacity 0.2s ease-in-out)
+      color: #fff
+      opacity: 0.7
+
+  .navbar-nav > li > a
+    @include transition (opacity 0.2s ease-in-out)
+
+  &:hover 
+    .navbar-nav > li > a
+      opacity: 1
+      &:hover
+        color: $orange
+    .navbar-text > a
+      opacity: 1
+      &:hover
+        color: $orange
+    
+
+@mixin keyframes_appear($name,$top)
+  @include keyframes($name)
+    from
+      opacity: 0
+      top: #{$top - 80}px
+    to
+      opacity: 1
+      top: #{$top}px
+
+.alert
+  position: absolute
+  width: 100%
+  padding-top: 10px
+  padding-bottom: 10px
+
+.alert-login
+  top: 0
+  @include animation(appear_login 0.5s ease-in)
+
+.alert-main
+  top: 50px
+  @include animation(appear_main 0.5s ease-in)
+
+@include keyframes_appear('appear_main',50)
+@include keyframes_appear('appear_login',0)
+
+#search
+  margin: 1% 2%
+
+#search_area
+  margin-top: 2%
+
+.button
+  margin-top: 1%
+
+.big-button
+  width: 100%
+
+.clickable:hover
+  cursor: pointer
+
+footer
+  @include transition (opacity 0.2s ease-in-out)
+  opacity: 0.6
+  margin-top: 10px
+  padding-bottom: 10px
+
+  &:hover
+    opacity: 1
+
+  .links
+    padding-right: 2%
+
+    a
+      color: #333
+
+@media(min-width: 992px)
+  #stats
+    border-left: 1px solid $grey
+    margin-top: 20px
+
+.inline
+  display: inline
+
+.typeahead,
+.tt-query,
+.tt-hint 
+  height: 30px
+  outline: none
+
+
+.typeahead 
+  background-color: #fff
+
+.tt-query 
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+
+
+.tt-hint 
+  color: #999
+  padding: 8px 11px
+
+.with-separation
+  border-top: 1px solid $grey
+  margin-top: 5%
+
+
+.tt-dropdown-menu 
+  width: 422px
+  margin-top: 12px
+  padding: 8px 0
+  background-color: #fff
+  border: 1px solid #ccc
+  border: 1px solid rgba(0, 0, 0, 0.2)
+  -webkit-border-radius: 8px
+  -moz-border-radius: 8px
+  border-radius: 8px
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2)
+  -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2)
+  box-shadow: 0 5px 10px rgba(0,0,0,.2)
+
+
+.tt-suggestion 
+  padding: 3px 20px
+  line-height: 24px
+
+.tt-suggestion.tt-is-under-cursor 
+  color: #fff
+  background-color: #0097cf
+
+.tt-suggestion p 
+  margin: 0
+
+.twitter-typeahead
+  width: 100%
+
+.progress
+  margin-top: 5px
+  margin-bottom: 0
+
+#pass_error
+  margin-top: 7%
+
+.spin
+  min-height: 400px
+  
+.documentation
+  margin-left: 3%
+
+.faq
+  dt
+    &:before
+      content: "Q: "
+    &:after
+      content: "?"
+  dd
+    margin-bottom: 2%
+    &:before
+      content: "A: "
+
+.logo
+  text-align: center
+  text-indent: 2%
+  img
+    height: 50px
