@@ -1,5 +1,5 @@
 class TaskMailer < ActionMailer::Base
-  default from: "admin@jelly-fish.com"
+  default from: "classyjellyfish@gmail.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:

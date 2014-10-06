@@ -4,7 +4,7 @@ class AdsController < ApplicationController
   # GET /ads
   def index
     if current_user.indian || current_user.admin
-      @ads = Ad.where("repost_time < ?",1.day.from_now).page(params[:page])
+      @ads = Ad.order(:repost_time).page(params[:page])
     else
       @ads = Ad.where(user: current_user).page(params[:page])
     end
@@ -12,7 +12,6 @@ class AdsController < ApplicationController
 
   def done
     ad = Ad.find(params[:id])
-    ad.repost_time += 1.day
     ad.last_repost = Time.now
     ad.save
     redirect_to action: :index
