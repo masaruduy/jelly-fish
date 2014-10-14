@@ -12,6 +12,7 @@ class AdsController < ApplicationController
 
   def done
     ad = Ad.find(params[:id])
+    ad.link = ad_params[:link]
     ad.last_repost = Time.now
     ad.save
     redirect_to action: :index

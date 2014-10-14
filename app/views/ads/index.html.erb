@@ -7,43 +7,66 @@
       <th>Repost Time</th>
       <% if @current_user.indian? %>
         <th>Id</th>
-        <th>Kijiji User</th>
-        <th>Kijiji Pass</th>
-        <th>Done</th>
-      <% else %>
+      <th>Kijiji User</th>
+      <th>Kijiji Pass</th>
+      <th>Done</th>
+    <% else %>
         <th>Last Repost</th>
-        <th colspan="2"></th>
-      <% end %>
+      <th colspan="2"></th>
+    <% end %>
     </tr>
   </thead>
 
   <tbody>
-    <% @ads.each do |ad| %>
-      <tr>
-        <td><a href="<%= ad.link %>"><%= ad.link%></a></td>
-        <td><%= l ad.repost_time %></td>
-        <% if @current_user.indian? %>
-          <td><%= ad.id %></td>
-          <td><%= ad.user.kijiji_user %></td>
-          <td><%= ad.user.kijiji_password %></td>
-          <td>
-            <%= form_for ad, as: "announce",url: done_ad_url(ad.id) do |f| %>
-            <%= f.submit "Done", class: "btn btn-success" %>
-          <%end%>
-        </td>
-        <% else %>
-          <td><%= ad.last_repost || "Never"%></td>
-          <td><%= link_to 'Edit', edit_ad_path(ad) %></td>
-          <td><%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+  <% @ads.each do |ad| %>
+    <tr>
+    <td><a href="<%= ad.link %>"><%= ad.link%></a></td>
+    <td><%= l ad.repost_time %></td>
+    <% if @current_user.indian? %>
+      <td><%= ad.id %></td>
+    <td><%= ad.user.kijiji_user %></td>
+    <td><%= ad.user.kijiji_password %></td>
+    <td>
+      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target=<%="#myModal-#{ad.id}"%>>
+        Done
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id=<%="myModal-#{ad.id}"%> tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Please update the ad link</h4>
+            </div>
+            <div class="modal-body">
+              <%= form_for ad, as: "announce",url: done_ad_url(ad.id) do |f| %>
+                <%= f.label :link%><br>
+              <%= f.text_field :link, class: "form-control", placeholder: "New ad link" %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <%= f.submit "Done", class: "btn btn-success" %>
+            </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>
+<% else %>
+    <td><%= ad.last_repost || "Never"%></td>
+  <td><%= link_to 'Edit', edit_ad_path(ad) %></td>
+  <td><%= link_to 'Destroy', ad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% end %>
+</tr>
     <% end %>
-  </tbody>
+</tbody>
 </table>
 <%= paginate @ads %>
 
 <br>
 
 <% unless @current_user.indian? %>
-  <%= link_to 'New Ad', new_ad_path %>
+<%= link_to 'New Ad', new_ad_path %>
 <% end %>
+
