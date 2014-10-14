@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.1.2"
+ruby "2.1.3"
 
 gem "bourbon", "~> 3.2.1"
 gem "coffee-rails"
@@ -27,6 +27,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'jquery-placeholder-rails'
 gem 'spinjs-rails', git: 'https://github.com/Skizzk/spinjs-rails', branch: 'patch-1'
 gem 'autoprefixer-rails'
+gem "highcharts-rails", "~> 3.0.0"
 gem "bcrypt"
 
 group :development do
