@@ -6,8 +6,10 @@ class Ad < ActiveRecord::Base
 
   private
 
-  def add_a_day
-    self.repost_time += 1.day if self.repost_time < 24.hours.from_now
+  def add_days
+    while self.repost_time < 24.hours.from_now
+      self.repost_time += 1.day 
+    end
   end
 
   def send_email_on_create
