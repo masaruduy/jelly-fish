@@ -6,6 +6,12 @@ class Ad < ActiveRecord::Base
 
   attr_accessor :no_days_add
 
+  def schedule_for_tommorow
+    while self.repost_time.day != 1.day.from_now.day 
+      self.repost_time += 1.day
+    end
+  end
+
   private
 
   def add_days

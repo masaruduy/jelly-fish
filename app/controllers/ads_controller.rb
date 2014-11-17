@@ -15,6 +15,7 @@ class AdsController < ApplicationController
     ad.link = ad_params[:link]
     ad.last_repost = Time.now
     ad.no_days_add = true
+    ad.schedule_for_tommorow
     ad.save
     redirect_to action: :index
   end
